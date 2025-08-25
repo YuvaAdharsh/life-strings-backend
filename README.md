@@ -1,172 +1,146 @@
-#Life Strings
+Life Strings – Resilience Assessment Backend
 
-Life Strings Backend API
-A Node.js/Express backend API for the Life Strings resilience assessment tool. This API handles feedback collection, analytics tracking, and data management for psychological resilience assessments.
-Features
+Life Strings Backend is a Node.js/Express API designed to power the Life Strings resilience assessment tool. It enables feedback collection, real-time analytics, and secure data management to evaluate psychological resilience. The system is lightweight, file-based, and easy to deploy with built-in health monitoring and admin endpoints.
 
-✅ Feedback submission and validation
-📊 Real-time analytics tracking
-🔒 Basic authentication for admin endpoints
-📈 Resilience score averaging
-📋 CSV data export functionality
-🌐 CORS support for frontend integration
-💾 File-based JSON data storage
-🔍 Health monitoring endpoint
+✨ Features
+📝 Feedback Management
 
-Tech Stack
+Submit and validate user feedback
+
+Support for experience ratings: excellent, good, average, poor
+
+Store feedback with resilience score, improvements, and metadata
+
+📊 Analytics & Insights
+
+Aggregated statistics: total submissions, average scores, experience breakdown
+
+Real-time tracking of resilience assessments
+
+Common improvement suggestions extraction
+
+Export analytics as CSV or JSON
+
+🔒 Secure Access
+
+Admin-only endpoints protected with auth token
+
+Role-based feedback access for monitoring & export
+
+CORS support for frontend integration
+
+🔍 System Health
+
+/health endpoint for server uptime and status monitoring
+
+🛠 Tech Stack
 
 Runtime: Node.js (≥14.0.0)
 Framework: Express.js
-Storage: File-based JSON storage
-Dependencies: cors, express
+Storage: File-based JSON (no external DB required)
+Dependencies: express, cors
 Dev Tools: nodemon
 
-Quick Start
+🚀 Quick Start
 Prerequisites
 
-Node.js (version 14.0.0 or higher)
+Node.js v14.0.0 or higher
+
 npm or yarn package manager
 
 Installation
-
-Clone the repository:
-
-bashgit clone https://github.com/yuvaadharsh/life-strings-backend.git
+git clone https://github.com/yuvaadharsh/life-strings-backend.git
 cd life-strings-backend
+npm install
 
-Install dependencies:
+Configuration
 
-bashnpm install
+Copy environment variables and configure:
 
-Configure environment variables:
+cp .env.example .env
 
-bashcp .env.example .env
-# Edit .env with your settings
 
-Start the development server:
+Update .env:
 
-bashnpm run dev
-Or start in production mode:
-bashnpm start
-The server will start on port 3000 (or the port specified in your environment variables).
-Environment Configuration
-Create a .env file in the root directory:
-envPORT=3000
-NODE_ENV=production
-CORS_ORIGIN=https://yuvaadharsh.github.io
-AUTH_TOKEN=your-secure-auth-token-here
-API Endpoints
-Public Endpoints
-Health Check
-httpGET /health
-Returns server status and timestamp.
-Submit Feedback
-httpPOST /api/feedback
-Content-Type: application/json
+PORT=3000  
+NODE_ENV=production  
+CORS_ORIGIN=https://yuvaadharsh.github.io  
+AUTH_TOKEN=your-secure-auth-token  
 
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "experience": "excellent",
-  "feedback": "Great tool for resilience assessment...",
-  "improvements": "Could use more detailed explanations",
-  "resilienceScore": 75
-}
-Experience Options: excellent, good, average, poor
-Get Analytics
-httpGET /api/analytics
-Returns aggregated analytics data including total submissions, average scores, and experience ratings.
-Protected Endpoints
-These endpoints require authentication via the Authorization header:
-Get All Feedback
-httpGET /api/feedback/all
-Authorization: Bearer your-secret-token-here
-Export Feedback as CSV
-httpGET /api/export/csv
-Authorization: Bearer your-secret-token-here
-Data Storage
-The API uses file-based JSON storage in the data/ directory:
+Run Server
 
-data/feedback.json - Stores all feedback submissions
-data/analytics.json - Stores aggregated analytics data
+Development:
 
-Feedback Data Structure
-json{
-  "id": "unique-feedback-id",
-  "name": "User Name",
-  "email": "user@example.com",
-  "experience": "excellent",
-  "feedback": "User feedback text",
-  "improvements": "Suggested improvements",
-  "resilienceScore": 75,
-  "timestamp": "2025-01-15T10:30:00.000Z",
-  "ipAddress": "127.0.0.1",
-  "userAgent": "Mozilla/5.0..."
-}
-Analytics Data Structure
-json{
-  "totalSubmissions": 150,
-  "averageScore": 68,
-  "experienceRatings": {
-    "excellent": 45,
-    "good": 60,
-    "average": 35,
-    "poor": 10
-  },
-  "commonImprovements": ["interface", "questions", "results"],
-  "lastUpdated": "2025-01-15T10:30:00.000Z"
-}
-API Response Format
-All endpoints return JSON responses in this format:
-Success Response
-json{
-  "success": true,
-  "message": "Operation completed successfully",
-  "data": { /* response data */ }
-}
-Error Response
-json{
-  "success": false,
-  "error": "Error description"
-}
-Validation Rules
-Feedback Validation
+npm run dev
 
-experience: Must be one of: excellent, good, average, poor
-feedback: Required, 10-2000 characters
-name: Optional, defaults to "Anonymous"
-email: Optional
-resilienceScore: Optional integer
-improvements: Optional string
 
-Development
-Available Scripts
+Production:
 
-npm start - Start production server
-npm run dev - Start development server with nodemon
-npm test - Run tests (not implemented)
+npm start
 
-Project Structure
+
+Server runs on http://localhost:3000
+ (or configured port).
+
+📂 Project Structure
 life-strings-backend/
 ├── data/                 # JSON data storage
-├── server.js            # Main server file
-├── package.json         # Dependencies and scripts
-├── .env                # Environment variables
-└── README.md           # This file
-Deployment
-Environment Setup
+├── server.js             # Main server file
+├── package.json          # Dependencies & scripts
+├── .env                  # Environment variables
+└── README.md             # Documentation
 
-Set NODE_ENV=production in your environment
-Configure CORS_ORIGIN to match your frontend domain
-Set a secure AUTH_TOKEN for protected endpoints
-Ensure the server has write permissions to the data/ directory
+📊 Data Handling
+Feedback Data
 
-Recommended Hosting Platforms
+ID, Name (optional), Email (optional)
 
-Heroku: Easy deployment with git integration
-Railway: Modern platform with simple setup
-DigitalOcean App Platform: Scalable with database options
-AWS EC2: Full control and customization
-Vercel: Serverless deployment (may require modifications)
+Experience rating
+
+Feedback text & suggested improvements
+
+Resilience score (optional)
+
+Metadata: timestamp, IP, user agent
+
+Analytics Data
+
+Total submissions
+
+Average resilience score
+
+Experience distribution
+
+Common improvement keywords
+
+Last updated timestamp
+
+🔗 API Overview
+
+Public Endpoints
+
+GET /health → Server status
+
+POST /api/feedback → Submit feedback
+
+GET /api/analytics → Get aggregated insights
+
+Protected Endpoints (Auth Required)
+
+GET /api/feedback/all → View all feedback
+
+GET /api/export/csv → Export all feedback as CSV
+
+📈 Future Enhancements
+
+Migration from file-based storage to database (MongoDB/Postgres)
+
+Admin dashboard for analytics visualization
+
+Email notifications for new submissions
+
+Extended authentication (JWT, role-based access)
+
+Scalable deployment with Docker/Kubernetes
 
 
