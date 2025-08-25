@@ -1,3 +1,5 @@
+#Life Strings
+
 Life Strings Backend API
 A Node.js/Express backend API for the Life Strings resilience assessment tool. This API handles feedback collection, analytics tracking, and data management for psychological resilience assessments.
 Features
