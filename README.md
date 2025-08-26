@@ -83,11 +83,22 @@ Server runs on http://localhost:3000
  (or configured port).
 
 📂 Project Structure
+
 life-strings-backend/
+
+
 ├── data/                 # JSON data storage
+
+
 ├── server.js             # Main server file
+
+
 ├── package.json          # Dependencies & scripts
+
+
 ├── .env                  # Environment variables
+
+
 └── README.md             # Documentation
 
 📊 Data Handling
